@@ -1,0 +1,223 @@
+/* BODY MAIN PAGE */
+
+body {
+ background: rgba(255, 145, 1, 0.491);
+ color: black;
+ margin: 0px !important;
+ padding: 0px !important; 
+}
+
+/* NAVBAR */
+
+.navb{
+  margin: 0px;
+  padding: 0px;
+  unicode-bidi:unset;
+}
+
+.Nav{
+  background: rgb(198, 136, 89);
+  justify-content: space-between;
+  display: flex;
+  color: black;
+  padding: 15px;
+}
+
+.navbtn{
+  display: flex;
+  gap: 18px;
+  padding: 5px;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+  font-weight: 700;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+a:active{
+  cursor: pointer;
+  scale: 1.1  ;
+}
+
+h2{
+  margin: 0px;
+  padding: 0px;
+}
+
+/* HOME */
+
+.card2{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 35px;
+  margin-top: 10px;
+}
+
+.block{
+  background-color: rgba(181, 170, 109, 0.805);
+  border: 2px solid rgb(163, 152, 152);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+  width: fit-content;
+  height: fit-content;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.inner{
+  display: flex;
+  margin: 15px;
+  align-items: center;
+  gap: 5px;
+}
+
+img{
+  border: 2px soild whitesmoke;
+  height: 300px;
+  width: 300px;
+  margin-top: 7px;
+  border-radius: 25px;
+}
+
+.desc{
+  background-color: rgb(186, 193, 198);
+  box-shadow: 2 black ;
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 5px;
+  height: 150px;
+  width: 360px;
+  margin-left: 15px;
+}
+
+.desch1{
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desc p{
+  margin: 0px;
+  color: black;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+/* SHOP - CARD */
+.ca{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card{
+  background-color: whitesmoke;
+  height: 190px;
+  width: 370px;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 5px;
+  margin-top: 15px;
+}
+
+.top{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px; 
+  padding-top: 5px;
+  border-bottom: 2px solid gray;
+}
+
+.imgcard{
+  height: 110px;
+  width: 100px;
+  border-radius: 15px;
+  margin-top: -5px;
+  margin-left: -60px;
+}
+
+.img{
+  display: flex;
+  justify-items: center;
+  margin-left: -90px;
+}
+
+.cardh3{
+  margin-top: -15px;
+}
+
+.cardp{
+  align-items: center;
+  justify-items: center;
+  margin-top: -10px;
+}
+
+.prl{
+  align-items: center;
+  justify-items: center;
+  display: flex;
+  margin-bottom: -25px;
+  justify-content: space-between;
+}
+
+.quantity{
+  margin-right: -145px;
+}
+
+.bottom{
+  margin-top: -12px;
+  color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bh2{
+  margin-top: -15px;
+  color: black;
+}
+
+.btn{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+button{
+  background-color: rgb(19, 19, 123);
+  color: white;
+  border-radius: 30px;
+  border-color: none;
+  border: none;
+  font-size:larger;
+  margin-top: 45px;
+  height: 37px;
+}
+
+
+
+/* FOOTER */
+
+.footer{
+  background-color: rgb(198, 136, 89);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  height: 50px;
+  width: 100%;
+  font-size: larger;
+  margin-bottom: 0px;
+  bottom: 0;
+  box-sizing: border-box;
+}
+
