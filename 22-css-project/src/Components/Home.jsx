@@ -1,6 +1,5 @@
 
 import Product from '../Pages/Product'
-
 const Home = (props) => {
   return (
     <div className='card2'> 

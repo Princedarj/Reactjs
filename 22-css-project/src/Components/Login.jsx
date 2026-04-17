@@ -15,8 +15,8 @@ const Login = () => {
             Pass:- <input type="text" placeholder='Enter Your Password  '/><br /><br /><br />
           
             <div className='check'>
-            <input type="checkbox"  className='ch1'/> 
-            <p className='ch'>Remember me</p>
+              <input type="checkbox"  className='ch1'/> 
+              <p className='ch'>Remember me</p>
             </div>
             <button className='lb'>Sign In</button>
           </form>

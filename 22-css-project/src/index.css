@@ -7,6 +7,10 @@ body {
  padding: 0px !important; 
 }
 
+h2{  
+  margin: 0px;
+  padding: 0px;
+}
 /* NAVBAR */
 
 .navb{
@@ -21,6 +25,8 @@ body {
   display: flex;
   color: black;
   padding: 15px;
+  flex-shrink: 1;
+  width: 98.95%;
 }
 
 .navbtn{
@@ -45,9 +51,7 @@ a:active{
   scale: 1.1  ;
 }
 
-h2{
-  margin: 0px;
-  padding: 0px;
+.logo{
   font-family: cursive;
   text-decoration: none;
 }
@@ -277,14 +281,16 @@ button{
   background-size: cover;
   color: rgba(0, 0, 0, 0.704);
   font-family:Arial, Helvetica, sans-serif ;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .block2{
   background-color: #fffdfd5c;
   position: absolute;
   padding: 15px;
-  margin-left: 40%;
-  margin-top: 10%;
   height: fit-content;
   width: fit-content;
   backdrop-filter: blur(10px); 
@@ -293,8 +299,6 @@ button{
 }
 
 .lt{
-  /* color: rgb(0, 0, 0); */
-  /* font-family:monospace; */
   margin-left: 10px;
   font-weight: 600;
   font-size: larger;
@@ -304,6 +308,7 @@ button{
   margin-left: 10px;
   font-size:x-large;
   margin-top: 50px;
+  
 }
 
 ::placeholder{
@@ -335,7 +340,7 @@ button{
   margin-bottom: 35px;
   margin-top: 27px;
   margin-left: 35%;
-  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   padding: 5px;
   height: 40px;
   font-size:larger;
