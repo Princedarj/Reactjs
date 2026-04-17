@@ -6,6 +6,8 @@ import Home from './Components/Home'
 import Shop from './Components/Shop'
 import Cart from './Components/Cart'
 import Contact from './Components/Contact'
+import Login from './Components/Login'
+import Profile from './Components/Profile'
 
 const App = () => {
   const product = [
@@ -98,6 +100,8 @@ const App = () => {
         <Route path='/shop' element={<Shop shop={shop} />}/>
         <Route path='/cart' element={<Cart />}/>
         <Route path='/contact' element={<Contact />}/>
+        <Route path='/login' element={<Login />}/>
+        <Route path='/profile' element={<Profile />}/>
       </Routes>
 
       <Footer />
