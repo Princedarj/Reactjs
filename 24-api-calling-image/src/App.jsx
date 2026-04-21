@@ -1,150 +1,155 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 const App = () => {
-
   const [data, setData] = useState([])
-
   const [formData, setFormData] = useState({
     name: '',
     email: ''
   })
-
   const [editItem, setEditItem] = useState(null)
+  const [nextId, setNextId] = useState(1)
 
-  
+  const API_URL = 'https://jsonplaceholder.typicode.com/users'
 
+  const getData = async () => {
+    try {
+      const response = await axios.get(API_URL)
+      setData(response.data)
 
-  //API Calling
-  const getdata = async () => {
-    const response = await axios.get
-    ('https://jsonplaceholder.typicode.com/users')
-    setData(response.data)
-    console.log(response.data);
-    
+       const ids = response.data.map(item => Number(item.id) || 0)
+    const maxId = ids.length ? Math.max(...ids) : 0
+    setNextId(maxId + 1)
+    } catch (error) {
+      console.error("Fetch error:", error)
+    }
   }
 
   useEffect(() => {
-    getdata();
-    if (editItem){
+    getData()
+  }, [])
+
+  useEffect(() => {
+    if (editItem) {
       setFormData({
         name: editItem.name,
         email: editItem.email
       })
     }
-  },[editItem])
+  }, [editItem])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
-    setFormData({[name]:value, ...formData})
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
-    try{
-      //EDIT MODE
-    if(editItem){
-      const response = await axios.put
-      (`https://jsonplaceholder.typicode.com/users/${editItem.id}`,
-        formData)
-        
-        alert("Data Updated..!")
+    if (editItem) {
+      // 🔥 UPDATE
+      setData(prev =>
+        prev.map(item =>
+          item.id === editItem.id
+            ? { ...item, ...formData }
+            : item
+        )
+      )
 
-        onUpdate({id: editItem.id, ...response.data})
-    }
-    else
-    {
-      // ADD MODE
-      const response = await axios.post
-      ('https://jsonplaceholder.typicode.com/users',formData)
-    
-      alert("DATA ADDED..!")
+      alert("Data Updated!")
+      setEditItem(null)
 
-      onSuccess(response.data)
+    } else {
+      const newUser = {
+        id: nextId,   
+        ...formData
+      }
+
+      setData(prev => [...prev, newUser])
+      setNextId(prev => prev + 1) 
+      alert("Data Added!")
     }
-    setFormData({name:'',email:''})
-    }
-    catch(error)
-    {
-      console.error(error);
-      
-    }
-  }
-    //Edit Clicked
-    const handleEdit = (item) => {
-      setEditItem(item)
-    }
-    
-    // Delete
-  const deletedata = async (id) => {
-    try {
-      await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
-      setData(data.filter((item) => item.id !== id))
-    } catch (error) {
-      console.error("Delete error:", error);
-    }
+
+    setFormData({ name: '', email: '' })
   }
 
+  const handleEdit = (item) => {
+    setEditItem(item)
+  }
+
+  const handleDelete = (id) => {
+    setData(prev => prev.filter(item => item.id !== id))
+  }
 
   return (
-    <div>
-      <div>
-        <form onSubmit={handleSubmit}>
-          
-          <input 
-          type="text" 
-          name='name'
-          placeholder='Enter Your Name'
+    <div style={{ padding: "20px" }}>
+      <h2>{editItem ? "Edit User" : "Add User"}</h2>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter Name"
           value={formData.name}
           onChange={handleInputChange}
-          />
+          required
+        />
 
-          <input type="text" 
-          type='text'
-          name='email'
-          placeholder='Enter Your Email'
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter Email"
           value={formData.email}
           onChange={handleInputChange}
-          />
+          required
+        />
 
-          <button type='submit'>
-            {editItem ? "UPDATE":"ADD"}
+        <button type="submit">
+          {editItem ? "Update" : "Add"}
+        </button>
+
+        {editItem && (
+          <button
+            type="button"
+            onClick={() => {
+              setEditItem(null)
+              setFormData({ name: '', email: '' })
+            }}
+          >
+            Cancel
           </button>
-        </form>
-      </div>
+        )}
+      </form>
 
-      <div>  
-        <table className="custom-table">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Delete</th>
-              <th>Edit</th>
+        <hr/>
+
+      <table className='custom-table'>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {data.map((user) => (
+            <tr key={user.id}>
+              <td>{user.id}</td>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>
+                <button onClick={() => handleEdit(user)}>Edit</button>
+                <button onClick={() => handleDelete(user.id)}>Delete</button>
+              </td>
             </tr>
-          </thead>
-
-          <tbody>
-            {data.map((elem,idx)=>(
-              <tr key={elem.id}>
-                <td>{elem.id}</td>
-                <td>{elem.name}</td>
-                <td>{elem.email}</td>
-                <td>
-                  <button onClick={() => deletedata(elem.id)}>Delete</button>
-                </td>
-                <td>
-                  <button onClick={() => handleEdit(elem)}>Edit</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }

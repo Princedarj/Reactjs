@@ -14,6 +14,9 @@ body{
     width: 100%;
 }
 
+.page{
+    padding: 20px;
+}
 .custom-table, .custom-table th, .custom-table td {
   border: 1px solid wheat;
   padding: 4px;
@@ -54,4 +57,5 @@ input{
     border: 2px solid rgb(2, 221, 255);
     font-size: large;
     border-radius: 5px;
+    color: black;
 }
