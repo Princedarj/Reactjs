@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
@@ -108,18 +108,45 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+} */
+
+body{
+  background-color: black;
+  color: white;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 button{
     background-color: burlywood;
     border: 2px solid silver;
-    border-radius: 15px;
+    border-radius: 10px;
     font-size: large;
-    height: 30px;
+    height: fit-content;
     width: fit-content ;
+    padding: 5px;
+}
+button:active{
+  scale: 1.1;
+}
+button:hover{
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .custom-table, .custom-table th, .custom-table td {
   border: 1px solid wheat;
-  padding: 5px;
+  padding: 10px;
+  margin: 15px;
+}
+
+.add{
+  border: 1px solid grey;
+  margin: 15px;
+  padding: 10px;
+}
+
+form{
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
