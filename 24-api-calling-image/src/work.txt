@@ -1,0 +1,21 @@
+  const API = axios.create({
+    baseURL : 'https://jsonplaceholder.typicode.com' 
+  });
+
+  //FETCH DATA
+  const getData = async () => {
+    try {
+
+      const userResponse = () => await API.get('/users')
+      // const postsResponse = () => await API.get('/posts')
+
+      setData(userResponse.data)
+
+    const ids = userResponse.data.map(item => Number(item.id) || 0)
+    const maxId = ids.length ? Math.max(...ids) : 0
+    setNextId(maxId + 1)
+
+    } catch (error) {
+      console.error("Fetch error:", error)
+    }
+  }
