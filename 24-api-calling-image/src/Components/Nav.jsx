@@ -8,9 +8,7 @@ const Nav = () => {
         <h1>User</h1>
 
         <div className='btn'>
-            <Link to={'/'} className="active:scale-95">Home</Link>
-            <Link to={'/adduser'} className="active:scale-95">Add User</Link>
-            <Link to={'/userlist'} className="active:scale-95">User List</Link>
+            <Link to={'/'} className="link">Home</Link>
         </div>
       </div>
     </div>

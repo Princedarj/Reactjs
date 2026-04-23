@@ -3,7 +3,6 @@ import axios from 'axios'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Nav from "./Components/Nav"
 import AddUser from './Components/Adduser'
-import Userlist from './Components/Userlist'
 import Home from './Components/Home'
 
 const App = () => {
@@ -73,11 +72,27 @@ const App = () => {
   }
 
   return (
-      <div>
-        <Nav />
+    <div>
+      <Nav />
 
       <Routes>
-        <Route path='/' element={<Home />} />
+
+        <Route path='/edituser' element={<AddUser
+          data={data}
+          setData={setData}
+          nextId={nextId}
+          setNextId={setNextId}
+          showPopup={showPopup} />} />
+
+        <Route path='/' element={<Home
+          data={data}
+          popup={popup}
+          setPopup={setPopup}
+          selectId={selectId}
+          setSelectId={setSelectId}
+          handleEdit={handleEdit}
+          handleDeleteSelected={handleDeleteSelected}
+        />} />
 
         <Route
           path='/adduser'
@@ -92,22 +107,8 @@ const App = () => {
           }
         />
 
-        <Route
-          path='/userlist'
-          element={
-            <Userlist
-              data={data}
-              popup={popup}
-              setPopup={setPopup}
-              selectId={selectId}
-              setSelectId={setSelectId}
-              handleEdit={handleEdit}
-              handleDeleteSelected={handleDeleteSelected}
-            />
-          }
-        />
       </Routes>
-      </div>
+    </div>
   )
 }
 

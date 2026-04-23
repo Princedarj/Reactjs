@@ -1,10 +1,121 @@
 import React from 'react'
+import { SquarePen, UserRoundX } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-const Home = () => {
+const Home = ({
+  data,
+  popup,
+  setPopup,
+  selectId,
+  setSelectId,
+  handleEdit,
+  handleDeleteSelected
+}) => {
+
+  // CHECKBOX
+  const handleCheckboxChange = (id) => {
+    setSelectId(prev =>
+      prev.includes(id)
+        ? prev.filter(item => item !== id)
+        : [...prev, id]
+    )
+  }
+
+  const navigate = useNavigate()
+
+
   return (
-      <div>
-        <h1>This Is Home Page Of User Side.</h1>
-    </div>
+    <>
+      {/* POPUP */}
+      {popup.show && (
+        <div className='popup'>
+          {popup.message}
+
+          {popup.onConfirm ? (
+            <div className='dbg'>
+              <button
+                className='dbtn1'
+                onClick={() => popup.onConfirm()}
+              >
+                YES
+              </button>
+
+              <button
+                className='dbtn2'
+                onClick={() =>
+                  setPopup({ show: false, message: "", onConfirm: null })
+                }
+              >
+                NO
+              </button>
+            </div>
+          ) : null}
+        </div>
+      )}
+        
+            <Link to={'/adduser'} className="addbtn">Add User</Link>
+      {/* TABLE */}
+      <div className='bottom'>
+        <div className='table'>
+
+          <table className='custom-table'>
+            <thead className='thead'>
+              <tr>
+                <th>Select</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>
+                  Action
+                  <button
+                    className='usercancel'
+                    onClick={handleDeleteSelected}
+                    disabled={selectId.length === 0}
+                  >
+                    <UserRoundX strokeWidth={1.75} />
+                  </button>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody className='tbody'>
+              {data.map((user) => (
+                <tr key={user.id}>
+
+                  <td>
+                    <input
+                      className='check'
+                      type="checkbox"
+                      checked={selectId.includes(user.id)}
+                      onChange={() => handleCheckboxChange(user.id)}
+                    />
+                  </td>
+
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+
+                  <td>
+                    <button
+                      className='editbtn'
+                      onClick={() => {
+                        handleEdit(user) 
+                        navigate('/edituser',{ state: {user} })
+                      }}
+                    >
+                      <SquarePen strokeWidth={1.75} />
+                    </button>
+                  </td>
+
+                </tr>
+              ))}
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+    </>
   )
 }
 

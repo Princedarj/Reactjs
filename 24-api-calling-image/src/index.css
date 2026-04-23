@@ -28,14 +28,29 @@ body {
     justify-content: space-between;
     align-items: center;
     backdrop-filter: blur(10px);
+    margin-bottom: 10px;
 }
 
 .navbar .btn {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     margin-right: 10px;
 }
 
+.link{
+text-decoration: none;
+font-size: large;
+color: black;
+scale: 1.1;
+}
+.link:hover{
+    text-decoration: underline;
+    background-color: rgba(255, 176, 4, 0.277);
+    border-radius: 10px;
+}
+.link:active{
+    scale: 1.2;
+}
 /* TOP */
 
 .topm {
@@ -51,6 +66,7 @@ body {
     border: 2px dashed linen;
     height: 250px;
     margin-top: -50px;
+    padding: 10px;
 }
 
 h1 {
@@ -69,7 +85,6 @@ form {
     align-items: center;
     gap: 10px;
     padding: 10px;
-    padding-bottom: 0px;
     margin: 10px;
     border-radius: 50px;
 }
@@ -90,7 +105,6 @@ form {
 }
 
 .input:hover {
-    cursor: pointer;
     border-color: black;
 }
 
@@ -104,7 +118,6 @@ form {
     display: flex;
     justify-content: center;
     gap: 20px;
-    /* padding-left: 1050px; */
 }
 
 .submit {
@@ -163,6 +176,22 @@ form {
 }
 
 /* BOTTOM */
+
+.addbtn{
+    text-decoration: none;
+    display: flex;
+    margin-bottom: -25px;
+    margin-left: 94%;
+    background-color: antiquewhite;
+    height: 30px;
+    padding: 5px;
+    width: 80px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.addbtn:active{
+    scale: 1.1;
+}
 
 .table {
     display: flex;
@@ -226,10 +255,6 @@ th:last-child {
     border: 2px solid black;
 }
 
-.editbtn:active {
-    scale: 1.1;
-}
-
 .editbtn:hover {
     background-color: green;
 }
@@ -257,6 +282,7 @@ th:last-child {
     width: 50px;
     margin-left: 30px;
     margin-right: -70px;
+    cursor: pointer;
 }
 
 .usercancel:hover {
@@ -300,6 +326,7 @@ th:last-child {
     font-family: 'Courier New', Courier, monospace;
     font-weight: 600;
     font-size: medium;
+    cursor: pointer;
 }
 .dbtn1:hover {
     background-color: green;
@@ -318,6 +345,7 @@ th:last-child {
     font-family: 'Courier New', Courier, monospace;
     font-weight: 600;
     font-size: medium;
+    cursor: pointer;
 }
 .dbtn2:hover {
     background-color: red;

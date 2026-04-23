@@ -55,7 +55,7 @@ const AddUser = ({ data, setData, nextId, setNextId, showPopup }) => {
             showPopup("DATA ADDED SUCCESSFULL!")
         }
 
-        navigate('/userlist')
+        navigate('/')
     }
 
     return (
