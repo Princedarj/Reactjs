@@ -1,0 +1,278 @@
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { SquarePen, UserRoundX, UserRoundPlus, UserPen, X } from 'lucide-react';
+
+
+const App = () => {
+  const [data, setData] = useState([])
+  const [formData, setFormData] = useState({
+    name: '',
+    email: ''
+  })
+  const [editItem, setEditItem] = useState(null)
+  const [nextId, setNextId] = useState(1)
+
+  const [popup, setPopup] = useState({
+    show: false,
+    message: "",
+    onConfirm: null
+  })
+
+  const [selectId, setSelectId] = useState([])
+
+  const API = axios.create({
+    baseURL: 'https://jsonplaceholder.typicode.com'
+  });
+
+  //FETCH DATA
+  const getData = async () => {
+    try {
+
+      const userResponse = await API.get('/users')
+      // const postsResponse = await API.get('/posts')
+
+      setData(userResponse.data)
+      // setData(postsResponse.data)
+
+      const ids = userResponse.data.map(item => Number(item.id) || 0)
+      // const ids = postsResponse.data.map(item => Number(item.id) || 0)
+      const maxId = ids.length ? Math.max(...ids) : 0
+      setNextId(maxId + 1)
+
+    } catch (error) {
+      console.error("Fetch error:", error)
+    }
+  }
+
+  //DIRECT CALL DATA
+  useEffect(() => {
+    getData()
+  }, [])
+
+  //EDIT ITEM
+  useEffect(() => {
+    if (editItem) {
+      setFormData({
+        name: editItem.name,
+        email: editItem.email
+      })
+    }
+  }, [editItem])
+
+
+  //INPUTCHANGE
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  //SUBMIT HANDLE
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (editItem) {
+      setData(prev =>
+        prev.map(item =>
+          item.id === editItem.id
+            ? { ...item, ...formData }
+            : item
+        )
+        // .sort((a , b) => b.id - a.id)
+      )
+
+      showPopup("DATA EDITED SUCEESSFULL..!")
+      setEditItem(null)
+
+    } else {
+      const newUser = {
+        id: nextId,
+        ...formData
+      }
+
+      setData(prev => [newUser, ...prev]/*.sort((a, b) => b.id - a.id)*/)
+      setNextId(prev => prev + 1)
+      showPopup("DATA ADDED SUCEESSFULL..!")
+    }
+
+    //SET INPUT EMPTY
+    setFormData({ name: '', email: '' })
+  }
+
+  //EDIT HANDLE
+  const handleEdit = (item) => {
+    setEditItem(item)
+  }
+
+  //DELETE HANDLE
+  const handleDeleteSelected = () => {
+
+    const count = selectId.length;
+
+    setPopup({
+      show: true,
+      message: `Delete Selected ${count} users?`,
+      onConfirm: () => {
+        setData(prev => prev.filter(user => !selectId.includes(user.id)))
+        setSelectId([])
+
+        showPopup(`Selected ${count} users deleted!`);
+      }
+    });
+  };
+
+  //POPUP HANDLE
+  const showPopup = (msg) => {
+    setPopup({ show: true, message: msg, onConfirm: null })
+
+    setTimeout(() => {
+      setPopup({ show: false, message: "", onConfirm: null })
+    }, 2000)
+  }
+
+  //SELECT ID TO DELETE
+  const handleCheckboxChange = (id) => {
+    setSelectId(prev =>
+      prev.includes(id)
+        ? prev.filter(item => item !== id)
+        : [...prev, id]
+    )
+  }
+
+  return (
+    <div className='page'>
+      <div className='topm'>
+        <div className='top'>
+          <h1>{editItem ? "Edit User" : "Add User"}</h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              className='input'
+              type="text"
+              name="name"
+              placeholder="Enter Name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+            />
+
+            <input
+              className='input'
+              type="email"
+              name="email"
+              placeholder="Enter Email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+            />
+            <div className='add'>
+              <button type="submit" className='submit'>
+                {editItem ? <UserPen color="#000000" strokeWidth={1.75} /> : <UserRoundPlus color="#000000" strokeWidth={1.75} />}
+              </button>
+
+              {editItem && (
+                <button
+                  className='cancel'
+                  type="button"
+                  onClick={() => {
+                    setEditItem(null)
+                    setFormData({ name: '', email: '' })
+                  }}
+                >
+                  <X color="#000000" strokeWidth={2.25} />
+                </button>
+              )}
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+      <div>
+        {popup.show && (
+          <div className='popup'>
+            {popup.message}
+
+            {popup.onConfirm ? (
+              <div className='dbg'>
+                <button
+                  className='dbtn1'
+                  onClick={() => {
+                    popup.onConfirm()
+                  }}
+                >
+                  YES
+                </button>
+
+                <button
+                  className='dbtn2'
+                  onClick={() => {
+                    setPopup({ show: false, message: "", onConfirm: null })
+                  }}
+                >
+                  NO
+                </button>
+              </div>
+            ) : null}
+          </div>
+        )}
+      </div>
+      <div className='bottom'>
+        <div className='table'>
+
+          <table className='custom-table'>
+            <thead className='thead'>
+              <tr>
+                <th>Select</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Action
+                  <button
+                    className='usercancel'
+                    onClick={handleDeleteSelected}
+                    disabled={selectId.length === 0}
+                  >
+                    <UserRoundX color="#000000" strokeWidth={1.75} />
+                  </button>
+                </th>
+
+              </tr>
+            </thead>
+
+            <tbody className='tbody'>
+              {data.map((user) => (
+                <tr key={user.id}>
+
+                  <td>
+                    <input
+                      className='check'
+                      type="checkbox"
+                      checked={selectId.includes(user.id)}
+                      onChange={() => handleCheckboxChange(user.id)}
+                    />
+                  </td>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                  {/* <td>{user.title}</td> */}
+                  <td>{user.email}</td>
+                  {/* <td>{user.body}</td> */}
+                  <td>
+                    <button
+                      className='editbtn'
+                      onClick={() => handleEdit(user)}>
+                      <SquarePen color="#000000" strokeWidth={1.75} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default App
