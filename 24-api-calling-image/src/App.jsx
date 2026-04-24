@@ -4,6 +4,8 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import Nav from "./Components/Nav"
 import AddUser from './Components/Adduser'
 import Home from './Components/Home'
+import Login from './Components/Login'
+import Register from './Components/Register'
 
 const App = () => {
   const navigate = useNavigate()
@@ -77,13 +79,6 @@ const App = () => {
 
       <Routes>
 
-        <Route path='/edituser' element={<AddUser
-          data={data}
-          setData={setData}
-          nextId={nextId}
-          setNextId={setNextId}
-          showPopup={showPopup} />} />
-
         <Route path='/' element={<Home
           data={data}
           popup={popup}
@@ -105,6 +100,29 @@ const App = () => {
               showPopup={showPopup}
             />
           }
+        />
+
+        <Route 
+          path='/edituser' 
+          element={
+            <AddUser
+              data={data}
+              setData={setData}
+              nextId={nextId}
+              setNextId={setNextId}
+              showPopup={showPopup} 
+            />
+          } 
+        />
+
+        <Route 
+          path='/login'
+          element={<Login />}
+        />
+
+        <Route 
+          path='/register'
+          element={<Register />}
         />
 
       </Routes>
