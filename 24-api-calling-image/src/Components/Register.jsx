@@ -2,9 +2,11 @@ import { Eye, EyeOff } from 'lucide-react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Register = () => {
+
+const Register = ({showPopup}) => {
 
     const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirm_password, setShowConfirm_password] = React.useState(false);
 
     const [formData, setFormData] = useState({
         firstname: '',
@@ -12,8 +14,8 @@ const Register = () => {
         lastname: '',
         e_mail: '',
         phone_number: '',
-        password:'',
-        confirm_password:''
+        password: '',
+        confirm_password: ''
     });
 
     const handleChange = (e) => {
@@ -23,26 +25,40 @@ const Register = () => {
     const handleRegister = (e) => {
         e.preventDefault();
 
+        //  CHECK if password match
+        if(formData.password !== formData.confirm_password){
+            showPopup("Passwords doesn't MATCH.! ");
+            return;
+        }
 
-        localStorage.setItem('user', JSON.stringify(formData));
+        const existingUsers = JSON.parse(localStorage.getItem('allUsers')) || [];
 
-        alert('Data Saved In LocalStorage..');
-        
-        // console.log("Saved Data:", JSON.parse(localStorage.getItem('user')));
+        //  CHECK if email exists
+        const isEmailTaken = existingUsers.some(user => user.e_mail === formData.e_mail);
+
+        if (isEmailTaken) {
+            showPopup("You already have an Account...");
+            return; 
+        }
+
+        const updatedUsers = [...existingUsers, formData];
+
+        localStorage.setItem('allUsers', JSON.stringify(updatedUsers));
+
+        showPopup("Regestered Successfully..");
 
         setFormData({
-            firstname:'',
-            midlename:'',
-            lastname:'',
-            e_mail:'',
-            phone_number:'',
-            password:'',
-            confirm_password:''
+            firstname: '',
+            midlename: '',
+            lastname: '',
+            e_mail: '',
+            phone_number: '',
+            password: '',
+            confirm_password: ''
         });
     };
 
-return (
-    <div>
+    return (
         <div className='registerpage'>
             <div className='regcrd'>
                 <h1 className='regh1'>Register</h1>
@@ -104,7 +120,7 @@ return (
 
                     <div className='regpass'>
                         <input
-                            type={ showPassword ? "text" : "password"}
+                            type={showPassword ? "text" : "password"}
                             name='password'
                             value={formData.password}
                             placeholder='Password'
@@ -112,16 +128,18 @@ return (
                             onChange={handleChange}
                             required
                         />
-                        <span onClick={() => { setShowPassword(!showPassword) }}
-                            className='regeye'>
-                            {showPassword ? <Eye /> : <EyeOff />}
-                        </span>
+                        {formData.password && (
+                            <span onClick={() => { setShowPassword(!showPassword) }}
+                                className='regeye'>
+                                {showPassword ? <Eye /> : <EyeOff />}
+                            </span>
+                        )}
                     </div>
                     <hr />
 
                     <div className='regpass'>
                         <input
-                            type="password"
+                            type={showConfirm_password ? "text" : "password"}
                             name='confirm_password'
                             value={formData.confirm_password}
                             placeholder='Confirm Password'
@@ -129,14 +147,16 @@ return (
                             onChange={handleChange}
                             required
                         />
-                        <span onClick={() => {setShowPassword(!showPassword) }}
-                            className='regeye'>
-                            {showPassword ? <Eye /> : <EyeOff />}
-                        </span>
+                        {formData.confirm_password && (
+                            <span onClick={() => { setShowConfirm_password(!showConfirm_password) }}
+                                className='regeye'>
+                                {showConfirm_password ? <Eye /> : <EyeOff />}
+                            </span>
+                        )}
                     </div>
                     <hr />
 
-                    <button 
+                    <button
                         type='submit'
                         className='regsmt'
                     >
@@ -154,8 +174,7 @@ return (
                 </form>
             </div>
         </div>
-    </div>
-)
+    )
 }
 
 export default Register

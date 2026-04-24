@@ -19,7 +19,15 @@ body {
     background-position: center;
 }
 
+
+
+
+
 /* NAVBAR */
+
+
+
+
 
 .navbar {
     background-color: rgba(255, 176, 4, 0.246);
@@ -52,7 +60,16 @@ padding: 5px;
     scale: 1.2;
 }
 
+
+
+
+
+
 /* ADD OR EDIT */
+
+
+
+
 
 .topm {
     display: flex;
@@ -174,7 +191,15 @@ form {
     color: black;
 }
 
+
+
+
+
 /* USER LIST */
+
+
+
+
 
 .addbtn{
     text-decoration: none;
@@ -376,7 +401,13 @@ th:last-child {
     border-radius: 10px;
 }
 
+
+
+
 /* LOGIN */
+
+
+
 
 .loginpage{
     display: flex;
@@ -389,8 +420,8 @@ th:last-child {
     border-radius: 30px;
     border: 3px solid white;
     height: fit-content;
-    width: fit-content;
-    margin-top: 20px;
+    width: 500px;
+    margin-top: 50px;
     padding: 10px;
     box-shadow: 0px 0px 50px rgb(61, 58, 50);
 }
@@ -403,7 +434,7 @@ th:last-child {
 .lgnp{
     color: rgb(66, 66, 66);
     margin-left: 22px;
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 20px;
     margin-bottom: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -411,9 +442,10 @@ th:last-child {
 
 .lgnfrm{
     margin-top: -12px;
+    width: 450px;
 }
 
-.lgnin1{
+.lgnem{
     background: unset;
     color: black;
     width: 100%;
@@ -431,7 +463,7 @@ th:last-child {
     outline: none;
     font-family: Arial, Helvetica, sans-serif;
 }
-.lgnin2{
+.lgnpas{
     background: unset;
     color: black;
     width: 100%;
@@ -449,18 +481,15 @@ th:last-child {
     outline: none;
     font-family: Arial, Helvetica, sans-serif;
 }
-.lgnin:hover{
-    border-color: black;
-}
 
 .lgnsmt{
     font-size: 20px;
     border-radius: 10px;
     padding: 5px;
-    margin-top: 30px;
+    margin-top: 100px;
     border: 2px solid black;
     letter-spacing: 1.5px;
-    margin-left: 34%;
+    margin-left: 40%;
     font-family: Arial, Helvetica, sans-serif;
 }
 .lgnsmt:hover{
@@ -474,6 +503,7 @@ th:last-child {
 
 .reglink{
     margin-top: 50px;
+    margin-left: 78px;
     font-family: Arial, Helvetica, sans-serif;
 }
 .lgnreg{
@@ -490,14 +520,20 @@ th:last-child {
   transform: translateY(-50%);
   cursor: pointer;
 }
-.lgneye{
-    margin-top: 10px;
-}
 .lgneye svg{
-    color: rgb(8, 106, 204);
+    margin-top: 10px;
+    stroke: rgba(91, 91, 91, 0.424);
+    cursor: pointer;
 }
 
+
+
+
+
 /* REGESTER */
+
+
+
 
 .registerpage{
     display: flex;
@@ -524,7 +560,7 @@ th:last-child {
 .regp{
     color: rgb(66, 66, 66);
     margin-left: 22px;
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 20px;
     margin-bottom: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -686,6 +722,7 @@ th:last-child {
 
 .lgnlink{
     margin-top: 50px;
+    margin-left: 78px;
     font-family: Arial, Helvetica, sans-serif;
 }
 .reglgn{
@@ -704,9 +741,8 @@ th:last-child {
   transform: translateY(-50%);
   cursor: pointer;
 }
-.regeye{
-    margin-top: 10px;
-}
 .regeye svg{
-    color: rgb(8, 106, 204);
+    margin-top: 10px;
+    stroke: rgba(91, 91, 91, 0.424);
+    cursor: pointer;
 }

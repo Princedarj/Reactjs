@@ -1,10 +1,37 @@
 import { Eye, EyeOff } from 'lucide-react';
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({showPopup}) => {
 
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = React.useState(false);
+
+    const [loginData, setLogindata] = useState({
+        e_mail:'',
+        password:''
+    });
+
+    const handleChange = (e) => {
+        setLogindata({ ...loginData, [e.target.name]: e.target.value });
+    };
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        const existingUsers = JSON.parse(localStorage.getItem('allUsers')) || [];
+    
+        const userFound = existingUsers.find(user =>
+            user.e_mail === loginData.e_mail && user.password === loginData.password
+        );
+
+        if(userFound){
+            showPopup(`Welcome back, ${userFound.firstname}!`);
+            navigate('/');
+        }else{
+            showPopup("Invalid Email or Password!");
+        }
+    };
 
     return (
         <div className='loginpage'>
@@ -15,11 +42,14 @@ const Login = () => {
                     Sign in to your account...
                 </p>
 
-                <form type="submit" className='lgnfrm'>
+                <form onSubmit={handleLogin} className='lgnfrm'>
                     <input
-                        type="text"
-                        placeholder='Enter Your Name'
-                        className='lgnin1'
+                        type="email"
+                        name='e_mail'
+                        value={loginData.e_mail}
+                        onChange={handleChange}
+                        placeholder='Enter Your E-Mail'
+                        className='lgnem'
                         required
                     /><hr />
 
@@ -27,18 +57,26 @@ const Login = () => {
                     <div className='lgnpass'>
                         <input
                             type={showPassword ? "text" : "password"}
+                            name='password'
+                            value={loginData.password}
+                            onChange={handleChange}
                             placeholder='Enter Your Pass'
-                            className='lgnin2'
+                            className='lgnpas'
                             required
                         />
-                        <span onClick={() => { setShowPassword(!showPassword) }}
-                            className='lgneye'>
-                            {showPassword ? <Eye /> : <EyeOff />}
-                        </span>
+                        {loginData.password && (
+                            <span onClick={() => { setShowPassword(!showPassword) }}
+                                className='lgneye'>
+                                {showPassword ? <Eye /> : <EyeOff />}
+                            </span>
+                        )}
                     </div>
                     <hr />
 
-                    <button className='lgnsmt'>
+                    <button 
+                        className='lgnsmt'
+                        type='submit'    
+                    >
                         Submit
                     </button>
 

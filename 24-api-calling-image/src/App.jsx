@@ -77,6 +77,12 @@ const App = () => {
     <div>
       <Nav />
 
+      {popup.show && (
+        <div className="popup">
+          {popup.message}
+        </div>
+      )}
+
       <Routes>
 
         <Route path='/' element={<Home
@@ -102,29 +108,36 @@ const App = () => {
           }
         />
 
-        <Route 
-          path='/edituser' 
+        <Route
+          path='/edituser'
           element={
             <AddUser
               data={data}
               setData={setData}
               nextId={nextId}
               setNextId={setNextId}
-              showPopup={showPopup} 
+              showPopup={showPopup}
             />
-          } 
+          }
         />
 
-        <Route 
+        <Route
           path='/login'
-          element={<Login />}
+          element={
+            <Login 
+            showPopup={showPopup}
+            />
+          }
         />
 
-        <Route 
+        <Route
           path='/register'
-          element={<Register />}
+          element={
+            <Register
+              showPopup={showPopup}
+            />
+          }
         />
-
       </Routes>
     </div>
   )
